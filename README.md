@@ -6,3 +6,6 @@
 
 **Essay Topic 2: How would you use what you've learned in this course in the future?**<br />
 	I expect to learn various concept and skills that will help me to build the ability to teach myself a new skill or a language. Also, I would use the experience of this course to prepare myself for dealing with rapidly changing computer science job field. I don't know which field that I want to go or I will go to after graduating schoo, but if I learn the foundation of how to use a new skill, and if I have an understanding of what programming is, I believe that I can do well in any field. I expect that if I follow this course and do my own project diligently, I can use not only the specific skills that I will learn in this course but also the deep understanding and foundation in the future. 
+
+## Third Class
+We are learning about editors and relationships between files.
