@@ -13,22 +13,28 @@
      /* .container {
         background: rgb(88, 143, 245);
      }*/
+    /* top and bottom padding 0, left and right 1rem */
+     .navbar {
+       padding: 0 1rem;
+     }
+    
 
+    /*
      .col-lg-4 div {
       -background: rgb(88, 143, 245);
       height: 400px;
-     }
+     }*/
     </style>
   </head>
   <body>
       
-      <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+      <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
         <div class = "container">
             <a class="navbar-brand" href="#">Navbar</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
-          
+
             <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="navbar-nav">
                 <li class="nav-item active">
@@ -46,52 +52,101 @@
               </ul>
             </div>
        
-        </div>
-      </nav>
+        </div><!-- navbar container -->
+      </nav> <!-- nav bar -->
 
-    <!-- control the margin of page using specific width -->
+    <!-- container: control the margin of page using specific width -->
     <div class = "container">
-        
+      
       <h1>What do you MEME</h1>
+
+      <div class="alert alert-success">
+        <b>New!</b> You can now choose your own pictures.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <!-- javascript-->
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div><!-- Alert -->
+
       <p>some paragraph</p>
 
       <div class = "row">
         <!-- col-lg-4; at certain point column resizes
-             col-sm-6; half of size 
-        -->
+             col-sm-6; half of size -->
         <div class = "col-lg-4 col-sm-6">
           <div class="card">
-            <img class="card-img-top" src="https://media2.s-nbcnews.com/j/newscms/2018_06/2316986/180205-eagles-nick-foles-trophy-njs-847a_dc249df1dd2bf248f5f11b3c6cf6a86c.nbcnews-fp-320-280.jpg" alt="Card image cap">
+            <div class="card-header">
+                <button type="button" class="close" data-dismiss="card" aria-label="Close"> <!-- javascript-->
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <img class="card-img-flush" src="https://media2.s-nbcnews.com/j/newscms/2018_06/2316986/180205-eagles-nick-foles-trophy-njs-847a_dc249df1dd2bf248f5f11b3c6cf6a86c.nbcnews-fp-320-280.jpg" alt="Card image cap">
             <div class="card-body">
               <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
           </div>
-        </div>
+        </div><!-- card-->
         <div class = "col-lg-4 col-sm-6">
           <div class="card">
-            <img class="card-img-top" src="https://media2.s-nbcnews.com/j/newscms/2018_06/2316986/180205-eagles-nick-foles-trophy-njs-847a_dc249df1dd2bf248f5f11b3c6cf6a86c.nbcnews-fp-320-280.jpg" alt="Card image cap">
+            <div class="card-header">
+                <button type="button" class="close" data-dismiss="card" aria-label="Close"> <!-- javascript-->
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <img class="card-img-flush" src="https://media2.s-nbcnews.com/j/newscms/2018_06/2316986/180205-eagles-nick-foles-trophy-njs-847a_dc249df1dd2bf248f5f11b3c6cf6a86c.nbcnews-fp-320-280.jpg" alt="Card image cap">
             <div class="card-body">
               <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
           </div>
-        </div>
+        </div> <!-- card-->
         <div class = "col-lg-4 col-sm-6">
           <div class="card">
-            <img class="card-img-top" src="https://media2.s-nbcnews.com/j/newscms/2018_06/2316986/180205-eagles-nick-foles-trophy-njs-847a_dc249df1dd2bf248f5f11b3c6cf6a86c.nbcnews-fp-320-280.jpg" alt="Card image cap">
+            <div class="card-header">
+                <button type="button" class="close" data-dismiss="card" aria-label="Close"> <!-- javascript-->
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <img class="card-img-flush" src="https://media2.s-nbcnews.com/j/newscms/2018_06/2316986/180205-eagles-nick-foles-trophy-njs-847a_dc249df1dd2bf248f5f11b3c6cf6a86c.nbcnews-fp-320-280.jpg" alt="Card image cap">
             <div class="card-body">
               <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
           </div>
          
-        </div>
-      </div>
-    </div>
+        </div> <!-- card -->
+      </div><!-- row -->
+    </div> <!-- body container-->
     
     
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <!-- heavy loader: <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- our own script after importing or jquery and script from bootstrap -->
+    <script>
+      $(function(){
+        // $(".card .close").css({ fontSize: 48, color: "#FFFF00"}) is equivalent to below
+          var elements = $(".card .close, .alert .close");
+         // console.log(elements.length); // see in the console panel of developer tool in chrome
+         // console.log(elements); // show all elements in the console
+          elements.click(function(evt){
+            // console.log(evt);
+            // elements.css({ fontSize: 48, color: "#FFFF00"}); //function call, it gives return value (set of elements), but this will change all cards
+            // $(this).css({ fontSize: 48, color: "#FFFF00"}); // now using 'this' function pass, it will treat each card separately
+            // to card disappear
+            $(this).closest(".card, .alert").hide(); // closest: pass the closest parent.
+            // $(this).closest(".card, .alert").slideUp(); // if /heavy loader (without slim)/ is loaded, we can use slideUP.
+            // alert is working properly even if we don't import jquery from bootstrap because we use our own jquery.
+          });
+          //elements.on //'on' means if any event happens 'on' will call something
+          $.getJSON("https://bittrex.com/api/v1.1/public/getmarkets") //ajex: get api data, then display it instead unloading?
+          .done(function(data){
+            console.log(data);
+          });
+      });
+    </script>
   </body>
 </html>
