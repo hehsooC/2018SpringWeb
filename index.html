@@ -133,7 +133,7 @@
          // console.log(elements.length); // see in the console panel of developer tool in chrome
          // console.log(elements); // show all elements in the console
           elements.click(function(evt){
-            // console.log(evt);
+            console.log(evt);
             // elements.css({ fontSize: 48, color: "#FFFF00"}); //function call, it gives return value (set of elements), but this will change all cards
             // $(this).css({ fontSize: 48, color: "#FFFF00"}); // now using 'this' function pass, it will treat each card separately
             // to card disappear
@@ -141,11 +141,12 @@
             // $(this).closest(".card, .alert").slideUp(); // if /heavy loader (without slim)/ is loaded, we can use slideUP.
             // alert is working properly even if we don't import jquery from bootstrap because we use our own jquery.
           });
+          
           //elements.on //'on' means if any event happens 'on' will call something
-          $.getJSON("https://bittrex.com/api/v1.1/public/getmarkets") //ajex: get api data, then display it instead unloading?
+          /* $.getJSON("https://bittrex.com/api/v1.1/public/getmarkets") //ajex: get api data, then display it instead unloading?
           .done(function(data){
             console.log(data);
-          });
+          }); */
       });
     </script>
   </body>
