@@ -1,4 +1,5 @@
 // 'node server/index.js' to run it
+// localhost:8080/hello to see the server
 
 /* const flatten = require('array-flatten');
 
@@ -29,13 +30,26 @@ console.log("Listening on http://localhost:8080"); // sent the message and recei
 var express = require('express');
 var app = express();
 
+const servername = "localhost";
+const port = 8080;
+
+const simple = require('./simpleController');
+
+app.use(simple).listen(port);
+console.log("running on http://" + servername + ": " + port);
+
+
+
+/*
 // app.use()
 app.use(function(req, res, next){
     //res.write('This is provided by newpaltz.edu\r\n');
+    res.write('This is provided by Heh-Soo Choi at newpaltz.edu\r\n');
     next();
-});
+});*/
 // respond with "hello world" when a GET request is made to the homepage
 // Routing: attach the path to get each message
+/*
 app.get('/hello', function (req, res) {
   res.write('World');
   res.end();
@@ -45,11 +59,9 @@ app.get('/goodbye', function (req, res) {
     res.write('New Paltz');
     res.end();
 
-  });
-
+  });*/
 // not gonna excute automatically, it needs a submit form
 /* app.post('/goodbye', function (req, res) {
 res.send('New Paltz')
 }) */
-
-app.listen(8080);
+/*app.listen(8080); */
