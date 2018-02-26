@@ -13,3 +13,5 @@ m.Messages = ['Great new feature']; // because it needs to define object propert
 export function DisplayAlerts(){
     $("#alerts").append(m.Messages.join());
 }
+
+DisplayAlerts();

@@ -13,3 +13,4 @@ function DisplayAlerts() {
     $("#alerts").append(m.Messages.join());
 }
 exports.DisplayAlerts = DisplayAlerts;
+DisplayAlerts();
