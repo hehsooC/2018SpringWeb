@@ -35,6 +35,7 @@ const port = 8080;
 
 const simple = require('./simpleController');
 
+//app.use('./simpleController', simple).listen(port); 
 app.use(simple).listen(port);
 console.log("running on http://" + servername + ": " + port);
 
