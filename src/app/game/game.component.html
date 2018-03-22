@@ -16,9 +16,10 @@
     <div class="card">
       <div class="card-header">Played Quotes</div>
       <ul class="list-group list-group-flush">
-        <li class="list-group-item">Cras justo odio</li>
-        <li class="list-group-item">Dapibus ac facilisis in</li>
-        <li class="list-group-item">Vestibulum at eros</li>
+        <li *ngFor = "let playedquote of Model.PlayedQuotes" class = "list-group-item">
+          {{playedquote.PlayerName}}: <br/>
+          {{playedquote.Text}}
+        </li>
       </ul>
     </div><!-- Played Quotes -->
 
@@ -34,9 +35,9 @@
     <div class="card">
       <div class="card-header">Other Players</div>
       <ul class="list-group list-group-flush">
-        <li class="list-group-item">Cras justo odio</li>
-        <li class="list-group-item">Dapibus ac facilisis in</li>
-        <li class="list-group-item">Vestibulum at eros</li>
+        <li *ngFor = "let players of Model.Players" class="list-group-item">
+          {{players.Name}}
+        </li>
       </ul>
     </div> <!-- Other Players -->
 
