@@ -23,16 +23,31 @@ export class GameComponent implements OnInit {
 
   // e as event object
   submitQuote(e: MouseEvent, text: string){
-    e.preventDefault(); // don't browser know what we are doing as default
+    e.preventDefault(); // don't browser know what we are doing as default (don't trigger the browser event)
 
-    if(this.MyPlayedQuote()) return; // if this card is already played, return
+    // Truesy, Falsy in addition to boolean in ifstmt
+    // False: undefined, 0, 0 length string, no return, false, no variable 
+    // other than False, anything will be treated as True
+    if(this.MyPlayedQuote()) return; // if this card is already played, return (prevent submitting another quote)
     this.Model.PlayedQuotes.push({ Text: text, PlayerName: this.Me.Name, Chosen: false });
-    this.Model.MyQuotes.splice( this.Model.MyQuotes.indexOf(text), 1 );
+    this.Model.MyQuotes.splice( this.Model.MyQuotes.indexOf(text), 1 ); // remove the played quote in My Quotes
 
   }
 
-  MyPlayedQuote(): Quote | null {
-    return this.Model.PlayedQuotes.find( x => x.PlayerName == this.Me.Name ); // lambda production (fat arrow production); functional function programming)
-  }
+  // MyPlayedQuote(): Quote | null {
+  //   return this.Model.PlayedQuotes.find( x => x.PlayerName == this.Me.Name ); // lambda production (fat arrow production); functional function programming)
+  // }
+
+  // MyPlayedQuote as a functional lambda production
+  // () function with 0 param.
+  MyPlayedQuote = () => this.Model.PlayedQuotes.find( x => x.PlayerName == this.Me.Name );
+  // it can be in Model
+  ChosenQuote = () => this.Model.PlayedQuotes.find( x => x.Chosen );
+
+  // everybody except the dealer played quotes
+  IsEveryoneDone = () => this.Model.PlayedQuotes.length == this.Model.Players.length - 1; 
+  
+  IAmTheDealer = () => this.Me.Name == this.Model.Dealer;
+
 
 }
