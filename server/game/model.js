@@ -1,3 +1,5 @@
+var axios = require("axios");
+
 const QuotesStack = [
     "Wisdom is the reward you get for a lifetime of listening when you'd have preferred to talk. -Doug Larson",
     "If you make listening and observation your occupation, you will gain much more than you can by talk. -Robert Baden-Powell",
@@ -103,16 +105,25 @@ const QuotesStack = [
 
 var iCurrentQuote = 0;
 
-const PicturesStack = [
-
+var PicturesStack = [
+    "https://scontent-lga3-1.xx.fbcdn.net/v/t1.0-9/26907788_1614183255284072_4356465325754439623_n.jpg?_nc_cat=0&oh=05560c2d560984bc2dc89c2cd21b1e10&oe=5B6ED5D1",
+    "https://scontent.cdninstagram.com/t51.2885-15/e35/15803742_363191214059346_5346021728352993280_n.jpg?ig_cache_key=MTQyNjUyNDg4Njk0MzI5MzkyNA%3D%3D.2",
+    "https://scontent-lga3-1.xx.fbcdn.net/v/t1.0-9/29597820_1684078344961229_8294324594109308393_n.jpg?_nc_cat=0&oh=d0e334e7cb123adf45e37ee4e5870621&oe=5B367149"
 
 
 ];
+
+// asyncronous function, if you have something in server please put it in PicturesStack
+axios.get('https://api.imgflip.com/get_memes')
+     .then( 
+         response => PicturesStack = response.data.data.memes,
+        err => console.log(err)
+         ); // response - json, data.data.memes - will get data from data/meme from imgflip
+    
 var iCurrentPicture = 0;
 
-
-var GetQuotes = () => QuotesStack.slice(iCurrentQuote, iCurrentQuote += 7);
 /*
+// ES7
 class Game{
     Players;
     DealerId;
@@ -123,4 +134,50 @@ class Game{
     GetQuotes = () => QuotesStack.slice(iCurrentQuote, iCurrentQuote += 7);
 }
 */
+
+/*
+// fix above to ES6
+class Game {
+    constructor(){
+        this.Players = [];
+        this.DealerId = null;
+
+        this.PlayedQuotes = [];
+        this.Picture = null;
+
+        this.GetQuotes = () => QuotesStack.slice(iCurrentQuote, iCurrentQuote += 7);
+    }
+}
+*/
+/* catching an error
+process.on('unhandledRejection', (reason, p) => {
+    console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
+    // application specific logging, throwing an error, or other logic here
+  });
+*/
+// old way to fix it
+function Game() {
+        this.Players = [];
+        this.DealerId = null;
+
+        this.PlayedQuotes = [];
+        this.Picture = null;
+
+        // get new cards to a player
+        this.GetQuotes = () => QuotesStack.slice(iCurrentQuote, iCurrentQuote += 7);
+        // '%' will avoid index out of bound error
+        // 'this.Picture' is public variable
+        this.FlipPicture = () => this.Picture = PicturesStack[iCurrentPicture = (iCurrentPicture+1) % PicturesStack.length ]; 
+        
+        this.SubmitQuote = (text, playerId) => this.PlayedQuotes.push({ Text: text, PlayerId: playerId }); // public property (CAP): private property (LOWER)
+        this.ChooseQuote = text => {
+            this.PlayedQuotes.find( x => x.Text == text).Chosen = true;
+            this.DealerId = this.Players[this.DealerId = (this.DealerId + 1) % this.Players.length];
+        }
+}
+module.exports = Game; // exporting an object itself not the result
+
+/* without using 'class'
+var GetQuotes = () => QuotesStack.slice(iCurrentQuote, iCurrentQuote += 7); // give 7 cards to each person
 module.exports.GetQuotes = GetQuotes;
+*/

@@ -38,7 +38,7 @@ const game = require('./game/controller');
 //app.use('./simpleController', simple).listen(port); 
 app
   .use('/simple', simple)
-  .use('/game', game)
+  .use('/game', game) // attach router to our file
   .listen(port);
 
 console.log("running on http://" + servername + ": " + port);
