@@ -1,5 +1,7 @@
 // 'node server/index.js' to run it
 // localhost:8080/hello to see the server
+// create a web server
+// npm run server in terminal
 
 /* const flatten = require('array-flatten');
 
@@ -34,11 +36,19 @@ const servername = "localhost";
 const port = 8080;
 
 const simple = require('./simpleController');
-const game = require('./game/controller');
+
+const game = require('./game/controller'); // import game controller
+
 //app.use('./simpleController', simple).listen(port); 
+// allow any header
 app
+  .use('/', (req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "*");
+    next();
+  })
   .use('/simple', simple)
-  .use('/game', game) // attach router to our file
+  .use('/game', game) // attach router to our file (mounted)
   .listen(port);
 
 console.log("running on http://" + servername + ": " + port);

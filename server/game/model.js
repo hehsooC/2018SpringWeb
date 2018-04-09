@@ -100,7 +100,7 @@ const QuotesStack = [
     "Dreaming, after all, is a form of planning. -Gloria Steinem",
     "You can’t use up creativity.  The more you use, the more you have. -Maya Angelou",
     "If you look at what you have in life, you’ll always have more. If you look at what you don’t have in life, you’ll never have enough. -Oprah Winfrey",
-    "Stay committed to your decesions and stay flexible in your approach. It's the end you're after. -Anthony Robbins"
+    "Stay committed to your decisions and stay flexible in your approach. It's the end you're after. -Anthony Robbins"
     ];
 
 var iCurrentQuote = 0;

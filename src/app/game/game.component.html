@@ -5,7 +5,7 @@
         My Quotes
       </div>
       <ul class="list-group list-group-flush my-quotes">
-        <li *ngFor="let quote of Model.MyQuotes" 
+        <li *ngFor="let quote of Me.MyQuotes" 
             (click)="submitQuote($event, quote)"
             [ngClass]="{ enabled: !MyPlayedQuote() }"
             class="list-group-item" > <!-- if in ngClass MyPlayedQuote is enabled, execute not-allowed pointer -->
@@ -41,7 +41,7 @@
 
     <div class="card">
       <!-- Data Binding Syntax: src="{{Model.Picture}}" or [src]="Model.picture" -->
-      <img class="card-img-top card-img-bottom" [src]="Model.Picture" alt="card image"> 
+      <img class="card-img-top card-img-bottom" [src]="Model.Picture.url" alt="card image"> 
     </div> <!-- Picture -->
   </div> <!-- col-->
 

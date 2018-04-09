@@ -7,6 +7,7 @@ var app = express.Router(); // subrouter (controller)
 
 var game = new Game();
 
+// actions
 module.exports = app
     .get('/quotes', (req, res) => res.send( game.GetQuotes() ) ) // getting a result
     .get('/state', (req, res) => res.send( game ) )

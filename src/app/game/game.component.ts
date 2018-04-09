@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Http } from '@angular/http'; // import Http interface
+
 import { Game, User, Quote } from '../models/game';
 
 @Component({
@@ -9,13 +11,26 @@ import { Game, User, Quote } from '../models/game';
 export class GameComponent implements OnInit {
 
   // public variables
-  Model = new Game();
-  Me = new User();
+  Model = new Game();     // state of game
+  Me = new User();  
+  private _api = "http://localhost:8080/game";
 
-  
-  constructor() { 
+  // get http client
+  constructor(private http: Http) { 
     this.Me.Name = "Heh-Soo Choi"
+    http.get(this._api + "/quotes").subscribe(data => this.Me.MyQuotes = data.json()) // get quotes, when getting quote, store it to data
+    setInterval(() => this.refresh(), 1000) 
+
+
   }
+
+  // refresh Model every time
+  refresh(){
+    this.http.get(this._api + "/state")
+    .subscribe(data => this.Model = data.json())
+
+  }
+
 
   ngOnInit() {
 
@@ -30,7 +45,7 @@ export class GameComponent implements OnInit {
     // other than False, anything will be treated as True
     if(this.MyPlayedQuote()) return; // if this card is already played, return (prevent submitting another quote)
     this.Model.PlayedQuotes.push({ Text: text, PlayerName: this.Me.Name, Chosen: false });
-    this.Model.MyQuotes.splice( this.Model.MyQuotes.indexOf(text), 1 ); // remove the played quote in My Quotes
+    this.Me.MyQuotes.splice( this.Me.MyQuotes.indexOf(text), 1 ); // remove the played quote in My Quotes
 
   }
 
