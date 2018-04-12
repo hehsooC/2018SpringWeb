@@ -15,19 +15,13 @@ export class GameComponent implements OnInit {
   Me = new User();  
   private _api = "http://localhost:8080/game";
 
+
   // get http client
   constructor(private http: Http) { 
-    this.Me.Name = "Heh-Soo Choi"
-    http.get(this._api + "/quotes").subscribe(data => this.Me.MyQuotes = data.json()) // get quotes, when getting quote, store it to data
-    setInterval(() => this.refresh(), 1000) 
+    this.Me.Name = "Heh-Soo Choi";
+    http.get(this._api + "/quotes").subscribe(data => this.Me.MyQuotes = data.json()); // get quotes, when getting quote, store it to data
+    setInterval(() => this.refresh(), 1000); 
 
-
-  }
-
-  // refresh Model every time
-  refresh(){
-    this.http.get(this._api + "/state")
-    .subscribe(data => this.Model = data.json())
 
   }
 
@@ -36,6 +30,17 @@ export class GameComponent implements OnInit {
 
   }
 
+  // refresh Model every time
+  refresh(){
+    this.http.get(this._api + "/state")
+    .subscribe(data => this.Model = data.json());
+
+  }
+
+  flipPicture(e: MouseEvent) {
+    this.http.post(this._api + "/picture", {})
+             .subscribe(); // have to call subscribe() 
+  }
   // e as event object
   submitQuote(e: MouseEvent, text: string){
     e.preventDefault(); // don't browser know what we are doing as default (don't trigger the browser event)

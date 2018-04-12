@@ -1,6 +1,6 @@
 var axios = require("axios");
 
-const QuotesStack = [
+var QuotesStack = [
     "Wisdom is the reward you get for a lifetime of listening when you'd have preferred to talk. -Doug Larson",
     "If you make listening and observation your occupation, you will gain much more than you can by talk. -Robert Baden-Powell",
     "One of the most sincere forms of respect is actually listening to what another has to say. -Bryant H. McGill",
@@ -117,7 +117,7 @@ var PicturesStack = [
 axios.get('https://api.imgflip.com/get_memes')
      .then( 
          response => PicturesStack = response.data.data.memes,
-        err => console.log(err)
+         err => console.log(err)
          ); // response - json, data.data.memes - will get data from data/meme from imgflip
     
 var iCurrentPicture = 0;
