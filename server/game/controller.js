@@ -11,7 +11,7 @@ var game = new Game();
 module.exports = app
     .get('/quotes', (req, res) => res.send( game.GetQuotes() ) ) // getting a result
     .get('/state', (req, res) => res.send( game ) )
-    .post('/picture', (req, res) => res.send( game.FlipPicture() ) ); // post a picture, state will be changed with a new picture
+    .post('/picture', (req, res) => res.send( game.FlipPicture() ) ) ;// post a picture, state will be changed with a new picture
 
 
 

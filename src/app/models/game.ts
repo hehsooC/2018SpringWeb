@@ -9,7 +9,9 @@ export class Game {
 
     Dealer: string = 'Heh-Soo Choi';
 
-    Picture: string = 'https://scontent.cdninstagram.com/t51.2885-15/e35/15803742_363191214059346_5346021728352993280_n.jpg?ig_cache_key=MTQyNjUyNDg4Njk0MzI5MzkyNA%3D%3D.2';
+    Picture: {
+        url: string
+    };
     
     PlayedQuotes: Quote[] = [
         { Text:'So many Reasons to be grumpy, so little time', PlayerName:'Player1', Chosen: false}
