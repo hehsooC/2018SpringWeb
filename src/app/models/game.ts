@@ -1,25 +1,14 @@
 export class Game {
 
-    Players: User[] = [
-        { Name: 'Heh-Soo Choi', MyQuotes: [] },
-        { Name: 'Player1', MyQuotes: [] },
-        { Name: 'Player2', MyQuotes: [] },
-        //{ Name: 'Player3', MyQuotes: [] }
-    ];
+    Players: User[];
+    DealerId: string;
 
-    Dealer: string = 'Heh-Soo Choi';
-
+    PlayedQuotes: Quote[];
     Picture: {
         url: string
     };
     
-    PlayedQuotes: Quote[] = [
-        { Text:'So many Reasons to be grumpy, so little time', PlayerName:'Player1', Chosen: false}
-        // { Text: "Free Hugs? Go hug a cactus.", PlayerName: 'Player3', Chosen: false},
-        // { Text:"Don't be racist. Hate Everyone.", PlayerName: 'Player4', Chosen: true},
-        // { Text:"What doesn't kill you... Disappoints me", PlayerName: "Player2", Chosen: true}
-
-    ];
+    
 
 }
 
@@ -33,7 +22,7 @@ export class User {
 
 export class Quote {
     Text: string;
-    PlayerName: string;
+    PlayerId: string;
     Chosen: boolean = false;
 
     

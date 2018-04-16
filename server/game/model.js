@@ -164,7 +164,18 @@ function Game() {
         this.Picture = null;
 
         // get new cards to a player
-        this.GetQuotes = () => QuotesStack.slice(iCurrentQuote, iCurrentQuote += 7);
+        this.GetQuotes = (playerId) => {
+            if(this.Players.some(x => x.PlayerId == playerId)) {
+            // if the player is already in the system, do this
+
+            }else{
+                // create a new user
+                this.Players.push({ PlayerId: playerId, Name: playerId });
+                // give quotes to a new user
+                return QuotesStack.slice(iCurrentQuote, iCurrentQuote += 7);
+            }
+            
+        }
         // '%' will avoid index out of bound error
         // 'this.Picture' is public variable
         this.FlipPicture = () => this.Picture = PicturesStack[iCurrentPicture = (iCurrentPicture+1) % PicturesStack.length ]; 

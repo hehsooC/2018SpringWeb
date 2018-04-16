@@ -18,9 +18,9 @@ export class GameComponent implements OnInit {
 
   // get http client
   constructor(private http: Http) { 
-    this.Me.Name = "Heh-Soo Choi";
-    http.get(this._api + "/quotes").subscribe(data => this.Me.MyQuotes = data.json()); // get quotes, when getting quote, store it to data
-    setInterval(() => this.refresh(), 1000); 
+    this.Me.Name = "Heh-Soo Choi"
+    http.get(this._api + "/quotes", {params: { playerId: this.Me.Name }}).subscribe(data => this.Me.MyQuotes = data.json()) // get quotes, when getting quote, store it to data
+    setInterval(() => this.refresh(), 1000) 
 
 
   }
@@ -44,13 +44,20 @@ export class GameComponent implements OnInit {
   // e as event object
   submitQuote(e: MouseEvent, text: string){
     e.preventDefault(); // don't browser know what we are doing as default (don't trigger the browser event)
-
+    
     // Truesy, Falsy in addition to boolean in ifstmt
     // False: undefined, 0, 0 length string, no return, false, no variable 
     // other than False, anything will be treated as True
     if(this.MyPlayedQuote()) return; // if this card is already played, return (prevent submitting another quote)
-    this.Model.PlayedQuotes.push({ Text: text, PlayerName: this.Me.Name, Chosen: false });
-    this.Me.MyQuotes.splice( this.Me.MyQuotes.indexOf(text), 1 ); // remove the played quote in My Quotes
+    this.http.post(this._api + "/quotes", { Text: text, PlayerId: this.Me.Name })
+             .subscribe( data=>{
+               if(data.json().success){
+                 // only get rid of your quote if it is a success
+                this.Me.MyQuotes.splice( this.Me.MyQuotes.indexOf(text), 1 ); // remove the played quote in My Quotes
+
+               }
+             });
+    this.Model.PlayedQuotes.push({ Text: text, PlayerId: this.Me.Name, Chosen: false });
 
   }
 
@@ -60,14 +67,14 @@ export class GameComponent implements OnInit {
 
   // MyPlayedQuote as a functional lambda production
   // () function with 0 param.
-  MyPlayedQuote = () => this.Model.PlayedQuotes.find( x => x.PlayerName == this.Me.Name );
+  MyPlayedQuote = () => this.Model.PlayedQuotes.find( x => x.PlayerId == this.Me.Name );
   // it can be in Model
   ChosenQuote = () => this.Model.PlayedQuotes.find( x => x.Chosen );
 
   // everybody except the dealer played quotes
   IsEveryoneDone = () => this.Model.PlayedQuotes.length == this.Model.Players.length - 1; 
   
-  IAmTheDealer = () => this.Me.Name == this.Model.Dealer;
+  IAmTheDealer = () => this.Me.Name == this.Model.DealerId;
 
 
 }

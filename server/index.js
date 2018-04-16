@@ -31,18 +31,23 @@ console.log("Listening on http://localhost:8080"); // sent the message and recei
 // from expressjs.com
 const express = require('express');
 const path = require('path');
+const bodyParser = require('body-parser');
+
+const simple = require('./simpleController');
+const game = require('./game/controller'); // import game controller
+
 var app = express();
 
 const servername = "localhost";
 const port = 8080;
 
-const simple = require('./simpleController');
 
-const game = require('./game/controller'); // import game controller
 
 //app.use('./simpleController', simple).listen(port); 
 // allow any header
 app
+  .use(bodyParser.json()) // return the function that does bodyparser, this is an initializer
+  .use(bodyParser.urlencoded({ extended: false }))
   .use('/', (req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "*");
