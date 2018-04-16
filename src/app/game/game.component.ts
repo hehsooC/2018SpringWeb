@@ -12,17 +12,13 @@ export class GameComponent implements OnInit {
 
   // public variables
   Model = new Game();     // state of game
-  Me = new User();  
+  Me: User;
   private _api = "http://localhost:8080/game";
 
 
   // get http client
   constructor(private http: Http) { 
-    this.Me.Name = "Heh-Soo Choi"
-    http.get(this._api + "/quotes", {params: { playerId: this.Me.Name }}).subscribe(data => this.Me.MyQuotes = data.json()) // get quotes, when getting quote, store it to data
     setInterval(() => this.refresh(), 1000) 
-
-
   }
 
 
@@ -59,6 +55,11 @@ export class GameComponent implements OnInit {
              });
     this.Model.PlayedQuotes.push({ Text: text, PlayerId: this.Me.Name, Chosen: false });
 
+  }
+
+  login(name: string){
+    this.http.get(this._api + "/quotes", { params : { playerId: name }})
+    .subscribe(data=> this.Me = {Name: name, MyQuotes: data.json()})
   }
 
   // MyPlayedQuote(): Quote | null {
