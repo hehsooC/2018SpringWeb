@@ -203,13 +203,11 @@ function Game() {
         // this.PlayedQuotes.find( x => x.PlayerId == playerId).PlayerId = playerId;
 
         // if everyone is done and refresh the game, change dealer
+      
             this.DealerId = this.Players[this.DealerId = (this.DealerId + 1) % this.Players.length];
             
         }  
         
-        this.ChosenQuote = () => this.PlayedQuotes.Chosen;
-        this.IsEveryoneDone = () => this.PlayedQuotes.length == this.Players.length - 1; 
-       // this.IAmTheDealer = () => this.Players.Name == this.DealerId;
 }    
 module.exports = Game; // exporting an object itself not the result
 

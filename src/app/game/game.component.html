@@ -35,7 +35,7 @@
                 {{quote.PlayerId}}
               </span>
               <button *ngIf = "IsEveryoneDone() && IAmTheDealer() && !ChosenQuote()" 
-                      (click)="ChooseQuote($event, quote.Text)"
+                      (click)="ChooseQuote($event, quote)"
                       class = "btn btn-sm btn-primary">
                       Choose
               </button>

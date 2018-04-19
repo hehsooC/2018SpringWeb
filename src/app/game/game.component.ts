@@ -79,14 +79,11 @@ export class GameComponent implements OnInit {
     
   }
 
-  ChooseQuote(e: MouseEvent, text: string) {
+  ChooseQuote(e: MouseEvent, quote: Quote) {
     console.log("ChooseQuote in component executed");
     e.preventDefault();
-    this.http.get(this._api + "/quotes", {params: {Text: text}})
-    .subscribe(data => {
-      if(data.json().success)
-        console.log('chooseQuote send success');
-     } );
+    this.http.post(this._api + "/quotes", {Text:quote.Text})
+    .subscribe();
     //quote.Chosen = true;
 
 
