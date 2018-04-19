@@ -16,6 +16,8 @@ export class GameComponent implements OnInit {
   //Player: Quote;
   private _api = "http://localhost:8080/game";
 
+  //flippedPic: boolean = true;
+
   // get http client
   constructor(private http: Http) { 
     setInterval(() => this.refresh(), 1000) 
@@ -34,10 +36,10 @@ export class GameComponent implements OnInit {
   }
 
   flipPicture(e: MouseEvent) {
-    if(this.IAmTheDealer() == true){
+    if(this.IAmTheDealer() == true && this.quoteSubmit() == true){
       this.http.post(this._api + "/picture", {})
       .subscribe(); // have to call subscribe() 
-      
+
     }
 
 
@@ -67,6 +69,7 @@ export class GameComponent implements OnInit {
     
   }
 
+  
   login(name: string){
     console.log("login executed");
     this.http.get(this._api + "/quotes", { params : { playerId: name }})
@@ -76,6 +79,14 @@ export class GameComponent implements OnInit {
     
   }
 
+  ChooseQuote(e: MouseEvent, text: string) {
+    console.log("ChooseQuote in component executed");
+    e.preventDefault();
+    if(!this.ChosenQuote()){
+      this.http.post(this._api + "/quotes", { Text: text, PlayerId: this.Me.Name, Chosen: true })
+        .subscribe();
+    }
+  }
   // MyPlayedQuote(): Quote | null {
   //   return this.Model.PlayedQuotes.find( x => x.PlayerName == this.Me.Name ); // lambda production (fat arrow production); functional function programming)
   // }
@@ -90,6 +101,7 @@ export class GameComponent implements OnInit {
   IsEveryoneDone = () => this.Model.PlayedQuotes.length == this.Model.Players.length - 1; 
   
   IAmTheDealer = () => this.Me.Name == this.Model.DealerId;
+  quoteSubmit = () => this.Model.PlayedQuotes.length == 0;
  
-
+  // make choosequote()
 }

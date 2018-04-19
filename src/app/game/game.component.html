@@ -27,7 +27,7 @@
               [ngClass] = "{ 'list-group-item-success': quote.Chosen }"
               class = "list-group-item d-flex justify-content-between align-items-center">
               {{quote.Text}}
-              <span *ngIf = "!IsEveryoneDone() || (!IAmTheDealer() && !ChosenQuote())" 
+              <span *ngIf = "!IsEveryoneDone() || (!IAmTheDealer() && !ChosenQuote()) " 
                     class = "badge badge-light">
                     hidden
               </span>
@@ -35,7 +35,7 @@
                 {{quote.PlayerId}}
               </span>
               <button *ngIf = "IsEveryoneDone() && IAmTheDealer() && !ChosenQuote()" 
-                      (click)="quote.Chosen = true"
+                      (click)="ChooseQuote($event, quote.Text)"
                       class = "btn btn-sm btn-primary">
                       Choose
               </button>

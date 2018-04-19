@@ -162,19 +162,19 @@ function Game() {
 
         this.PlayedQuotes = [];
         this.Picture = null;
-        this.youDealer = false;
+       // this.youDealer = false;
 
 
         // get new cards to a player
         this.GetQuotes = (playerId) => {
-            console.log("GetQuotes execute")
+            console.log("GetQuotes execute");
             if(this.Players.some(x => x.PlayerId == playerId)) {
             // if the player is already in the system, do this
 
             }else{
                 if(this.DealerId == null){
                     this.DealerId = playerId;
-                    this.youDealer = !this.youDealer;
+                   // this.youDealer = !this.youDealer;
                     console.log("in server: " + this.DealerId);
                 }
                 // create a new user
@@ -187,18 +187,21 @@ function Game() {
         // '%' will avoid index out of bound error
         // 'this.Picture' is public variable
         this.FlipPicture = () => {
+            console.log("flipping picture");
             this.Picture = PicturesStack[iCurrentPicture = (iCurrentPicture+1) % PicturesStack.length ]; 
         }
         
         this.SubmitQuote = (text, playerId) => this.PlayedQuotes.push({ Text: text, PlayerId: playerId }); // public property (CAP): private property (LOWER)
-        this.ChooseQuote = text => {
+        this.ChooseQuote = (text) => {
+            console.log("choosing quotes");
             this.PlayedQuotes.find( x => x.Text == text).Chosen = true;
+           // this.PlayedQuotes.find( x => x.PlayerId == playerId).PlayerId = playerId;
             this.DealerId = this.Players[this.DealerId = (this.DealerId + 1) % this.Players.length];
-        }
-}
+        } 
+}    
 module.exports = Game; // exporting an object itself not the result
 
 /* without using 'class'
 var GetQuotes = () => QuotesStack.slice(iCurrentQuote, iCurrentQuote += 7); // give 7 cards to each person
 module.exports.GetQuotes = GetQuotes;
-*/
+*/ 
