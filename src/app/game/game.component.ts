@@ -13,7 +13,7 @@ export class GameComponent implements OnInit {
   // public variables
   Model = new Game();     // state of game
   Me: User;
-  //Player: Quote;
+  Q: Quote;
   private _api = "http://localhost:8080/game";
 
   //flippedPic: boolean = true;
@@ -48,7 +48,6 @@ export class GameComponent implements OnInit {
   // e as event object
   submitQuote(e: MouseEvent, text: string){
     e.preventDefault(); // don't browser know what we are doing as default (don't trigger the browser event)
-    
     if(!this.IAmTheDealer() == true){
     // Truesy, Falsy in addition to boolean in ifstmt
       // False: undefined, 0, 0 length string, no return, false, no variable 
@@ -59,6 +58,7 @@ export class GameComponent implements OnInit {
                 if(data.json().success){
                   // only get rid of your quote if it is a success
                   this.Me.MyQuotes.splice( this.Me.MyQuotes.indexOf(text), 1 ); // remove the played quote in My Quotes
+                  console.log('submit quote working');
 
                 }
               });
@@ -82,10 +82,15 @@ export class GameComponent implements OnInit {
   ChooseQuote(e: MouseEvent, text: string) {
     console.log("ChooseQuote in component executed");
     e.preventDefault();
-    if(!this.ChosenQuote()){
-      this.http.post(this._api + "/quotes", { Text: text, PlayerId: this.Me.Name, Chosen: true })
-        .subscribe();
-    }
+    this.http.get(this._api + "/quotes", {params: {Text: text}})
+    .subscribe(data => {
+      if(data.json().success)
+        console.log('chooseQuote send success');
+     } );
+    //quote.Chosen = true;
+
+
+    
   }
   // MyPlayedQuote(): Quote | null {
   //   return this.Model.PlayedQuotes.find( x => x.PlayerName == this.Me.Name ); // lambda production (fat arrow production); functional function programming)

@@ -157,7 +157,6 @@ var GameComponent = /** @class */ (function () {
         this.http = http;
         // public variables
         this.Model = new game_1.Game(); // state of game
-        //Player: Quote;
         this._api = "http://localhost:8080/game";
         // MyPlayedQuote(): Quote | null {
         //   return this.Model.PlayedQuotes.find( x => x.PlayerName == this.Me.Name ); // lambda production (fat arrow production); functional function programming)
@@ -202,6 +201,7 @@ var GameComponent = /** @class */ (function () {
                 if (data.json().success) {
                     // only get rid of your quote if it is a success
                     _this.Me.MyQuotes.splice(_this.Me.MyQuotes.indexOf(text), 1); // remove the played quote in My Quotes
+                    console.log('submit quote working');
                 }
             });
             this.Model.PlayedQuotes.push({ Text: text, PlayerId: this.Me.Name, Chosen: false });
@@ -216,10 +216,12 @@ var GameComponent = /** @class */ (function () {
     GameComponent.prototype.ChooseQuote = function (e, text) {
         console.log("ChooseQuote in component executed");
         e.preventDefault();
-        if (!this.ChosenQuote()) {
-            this.http.post(this._api + "/quotes", { Text: text, PlayerId: this.Me.Name, Chosen: true })
-                .subscribe();
-        }
+        this.http.get(this._api + "/quotes", { params: { Text: text } })
+            .subscribe(function (data) {
+            if (data.json().success)
+                console.log('chooseQuote send success');
+        });
+        //quote.Chosen = true;
     };
     GameComponent = __decorate([
         core_1.Component({

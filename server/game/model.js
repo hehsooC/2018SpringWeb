@@ -175,7 +175,7 @@ function Game() {
                 if(this.DealerId == null){
                     this.DealerId = playerId;
                    // this.youDealer = !this.youDealer;
-                    console.log("in server: " + this.DealerId);
+                    console.log("in server the dealer is: " + this.DealerId);
                 }
                 // create a new user
                 this.Players.push({ PlayerId: playerId, Name: playerId });
@@ -191,17 +191,29 @@ function Game() {
             this.Picture = PicturesStack[iCurrentPicture = (iCurrentPicture+1) % PicturesStack.length ]; 
         }
         
-        this.SubmitQuote = (text, playerId) => this.PlayedQuotes.push({ Text: text, PlayerId: playerId }); // public property (CAP): private property (LOWER)
+        this.SubmitQuote = (text, playerId) => {
+            console.log('submit quote executes');
+            this.PlayedQuotes.push({ Text: text, PlayerId: playerId });
+        }; // public property (CAP): private property (LOWER)
         this.ChooseQuote = (text) => {
             console.log("choosing quotes");
+            
             this.PlayedQuotes.find( x => x.Text == text).Chosen = true;
-           // this.PlayedQuotes.find( x => x.PlayerId == playerId).PlayerId = playerId;
+            console.log('chosen is ' + this.PlayedQuotes.find( x => x.Text == text).Chosen);
+        // this.PlayedQuotes.find( x => x.PlayerId == playerId).PlayerId = playerId;
+
+        // if everyone is done and refresh the game, change dealer
             this.DealerId = this.Players[this.DealerId = (this.DealerId + 1) % this.Players.length];
-        } 
+            
+        }  
+        
+        this.ChosenQuote = () => this.PlayedQuotes.Chosen;
+        this.IsEveryoneDone = () => this.PlayedQuotes.length == this.Players.length - 1; 
+       // this.IAmTheDealer = () => this.Players.Name == this.DealerId;
 }    
 module.exports = Game; // exporting an object itself not the result
 
-/* without using 'class'
+/* without using 'class' 
 var GetQuotes = () => QuotesStack.slice(iCurrentQuote, iCurrentQuote += 7); // give 7 cards to each person
 module.exports.GetQuotes = GetQuotes;
-*/ 
+*/     
