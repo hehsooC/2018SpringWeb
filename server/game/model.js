@@ -191,10 +191,11 @@ function Game() {
         
         this.SubmitQuote = (text, playerId) => {
             console.log('submit quote executes');
+            if(playerId == this.DealerId) throw Error("Dealer can't submit a quote");
             this.PlayedQuotes.push({ Text: text, PlayerId: playerId });
         }; // public property (CAP): private property (LOWER)
         this.ChooseQuote = (text) => {
-            console.log("choosing quotes");
+            console.log("choosing quotes"); 
             
             this.PlayedQuotes.find( x => x.Text == text).Chosen = true;
             console.log('chosen is ' + this.PlayedQuotes.find( x => x.Text == text).Chosen);

@@ -17,14 +17,25 @@ module.exports = app
 .post('/picture', (req, res) => res.send( game.FlipPicture() ) )
 // submitting quotes
 .post('/quotes', (req, res) => {
-    // console.log("req.body is " + req.body.PlayerId); // now body is empty
-    if(req.body.PlayerId != req.body.DealerId)
+    console.log(req.body);
+    try{
         game.SubmitQuote(req.body.Text, req.body.PlayerId);
-    res.send({ success: true });
-    if(req.body.PlayerId == req.body.DealerId){
-         console.log('work!');
-         game.ChooseQuote(req.body.Text); 
-     }
+        res.send({ success: true });
+    } catch(error){
+        res.status(403).send({ success: false, message: error.message});
+    }
+    
+    
+
+    // WHAT I DID
+    // console.log("req.body is " + req.body.PlayerId); // now body is empty
+    // if(req.body.PlayerId != req.body.DealerId)
+        // game.SubmitQuote(req.body.Text, req.body.PlayerId);
+        // res.send({ success: true });
+    // if(req.body.PlayerId == req.body.DealerId){
+    //      console.log('work!');
+    //      game.ChooseQuote(req.body.Text); 
+    //  }
 
        
      

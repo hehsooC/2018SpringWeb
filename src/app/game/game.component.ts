@@ -48,23 +48,25 @@ export class GameComponent implements OnInit {
   // e as event object
   submitQuote(e: MouseEvent, text: string){
     e.preventDefault(); // don't browser know what we are doing as default (don't trigger the browser event)
-    if(!this.IAmTheDealer() == true){
+     // if this card is already played, return (prevent submitting another quote)
+    if(this.MyPlayedQuote()||this.IAmTheDealer())
+      return;
+      
     // Truesy, Falsy in addition to boolean in ifstmt
       // False: undefined, 0, 0 length string, no return, false, no variable 
       // other than False, anything will be treated as True
-      if(this.MyPlayedQuote()) return; // if this card is already played, return (prevent submitting another quote)
       this.http.post(this._api + "/quotes", { Text: text, PlayerId: this.Me.Name })
               .subscribe( data=>{
                 if(data.json().success){
                   // only get rid of your quote if it is a success
                   this.Me.MyQuotes.splice( this.Me.MyQuotes.indexOf(text), 1 ); // remove the played quote in My Quotes
                   console.log('submit quote working');
-
                 }
-              });
-      this.Model.PlayedQuotes.push({ Text: text, PlayerId: this.Me.Name, Chosen: false });
-    }
+    }, err=> {
+          console.log(err);
+    });
 
+   // this.Model.PlayedQuotes.push({ Text: text, PlayerId: this.Me.Name, Chosen: false });
 
     
   }
@@ -84,7 +86,7 @@ export class GameComponent implements OnInit {
     e.preventDefault();
     this.http.post(this._api + "/quotes", {Text:quote.Text})
     .subscribe();
-    //quote.Chosen = true;
+    
 
 
     
