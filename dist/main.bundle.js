@@ -127,7 +127,7 @@ module.exports = ".my-quotes{\n    cursor: not-allowed;\n}\n.my-quotes .enabled 
 /***/ "./src/app/game/game.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\" *ngIf=\"!Me\">\n  <input #Name /><button (click) =\"login(Name.value)\" > Login</button>\n</div>\n\n<div class = \"row\" *ngIf=\"Me\">\n  <div class=\"col-md-4\">\n    <div class=\"card\">\n      <div class=\"card-header\">\n        My Quotes ({{Me.Name}})\n      </div>\n      <ul class=\"list-group list-group-flush my-quotes\">\n        <li *ngFor=\"let quote of Me.MyQuotes\" \n            (click)=\"submitQuote($event, quote)\"\n            [ngClass]=\"{ enabled: !MyPlayedQuote() && !IAmTheDealer() }\"\n            class=\"list-group-item\" > <!-- if in ngClass MyPlayedQuote is enabled, execute not-allowed pointer -->\n            {{quote}}\n        </li>\n      </ul>\n    </div>\n  </div> <!-- MyQuotes -->\n\n  <div class=\"col-md-8\">\n    <div class=\"card bg-success mb-3\">\n      <div class=\"card-header text-white\">Played Quotes</div>\n        <ul class=\"list-group list-group-flush\">\n          <li *ngFor = \"let quote of Model.PlayedQuotes\" \n              [ngClass] = \"{ 'list-group-item-success': quote.Chosen }\"\n              class = \"list-group-item d-flex justify-content-between align-items-center\">\n              {{quote.Text}}\n              <span *ngIf = \"!IsEveryoneDone() || (!IAmTheDealer() && !ChosenQuote()) \" \n                    class = \"badge badge-light\">\n                    hidden\n              </span>\n              <span *ngIf=\"ChosenQuote()\" class = \"badge badge-primary\">\n                {{quote.PlayerId}}\n              </span>\n              <button *ngIf = \"IsEveryoneDone() && IAmTheDealer() && !ChosenQuote()\" \n                      (click)=\"ChooseQuote($event, quote)\"\n                      class = \"btn btn-sm btn-primary\">\n                      Choose\n              </button>\n          </li>\n        </ul>\n    </div><!-- Played Quotes -->\n\n    <div class=\"card\">\n      <!-- Data Binding Syntax: src=\"{{Model.Picture}}\" or [src]=\"Model.picture\" -->\n      <img class=\"card-img-top card-img-bottom\" *ngIf=\"Model.Picture\" [src]=\"Model.Picture.url\" alt=\"card image\" /> \n      <div class = \"card-img-overlay\" style=\"text-align: center\">\n        <button class=\"btn btn-success btn-lg\" (click)=\"flipPicture($event)\">Flip the Picture</button>\n      </div>\n    </div> <!-- Picture -->\n  </div> <!-- col-->\n\n\n  <div class=\"col-md-4\">\n    \n    <div class=\"card\">\n      <div class=\"card-header\">Other Players</div>\n      <ul class=\"list-group list-group-flush\">\n        <li *ngFor = \"let players of Model.Players\" class=\"list-group-item\">\n          <img style = \"height: 16px; width: 16px\" class = \"rounded\">\n          {{players.Name}}\n        </li>\n      </ul>\n    </div> <!-- Other Players -->\n\n  </div> <!-- col-->\n</div>  <!--row-->"
+module.exports = "<div class=\"row\" *ngIf=\"!Me\">\n  <input #Name /><button (click) =\"login(Name.value)\" > Login</button>\n</div>\n\n<div class = \"row\" *ngIf=\"Me\">\n  <div class=\"col-md-4\">\n    <div class=\"card\">\n      <div class=\"card-header\">\n        My Quotes ({{Me.Name}})\n      </div>\n      <ul class=\"list-group list-group-flush my-quotes\">\n        <li *ngFor=\"let quote of Me.MyQuotes\" \n            (click)=\"submitQuote($event, quote)\"\n            [ngClass]=\"{ enabled: !MyPlayedQuote() && !IAmTheDealer() }\"\n            class=\"list-group-item\" > <!-- if in ngClass MyPlayedQuote is enabled, execute not-allowed pointer -->\n            {{quote}}\n        </li>\n      </ul>\n    </div>\n  </div> <!-- MyQuotes -->\n\n  <div class=\"col-md-8\">\n    <div class=\"card bg-success mb-3\">\n      <div class=\"card-header text-white\">Played Quotes</div>\n        <ul class=\"list-group list-group-flush\">\n          <li *ngFor = \"let quote of Model.PlayedQuotes\" \n              [ngClass] = \"{ 'list-group-item-success': quote.Chosen }\"\n              class = \"list-group-item d-flex justify-content-between align-items-center\">\n              {{quote.Text}}\n              <span *ngIf = \"!IsEveryoneDone() || (!IAmTheDealer() && !ChosenQuote()) \" \n                    class = \"badge badge-light\">\n                    hidden\n              </span>\n              <span *ngIf=\"ChosenQuote()\" class = \"badge badge-primary\">\n                {{quote.PlayerId}}\n              </span>\n              <button *ngIf = \"IsEveryoneDone() && IAmTheDealer() && !ChosenQuote()\" \n                      (click)=\"chooseQuote($event, quote)\"\n                      class = \"btn btn-sm btn-primary\">\n                      Choose\n              </button>\n          </li>\n        </ul>\n    </div><!-- Played Quotes -->\n\n    <div class=\"card\">\n      <!-- Data Binding Syntax: src=\"{{Model.Picture}}\" or [src]=\"Model.picture\" -->\n      <img class=\"card-img-top card-img-bottom\" *ngIf=\"Model.Picture\" [src]=\"Model.Picture.url\" alt=\"card image\" /> \n      <div class = \"card-img-overlay\" style=\"text-align: center\">\n        <button class=\"btn btn-success btn-lg\" \n                (click)=\"flipPicture($event)\"\n                *ngIf=\"IAmTheDealer() && (Model.PlayedQuotes.length == 0 || ChosenQuote())\">\n                Flip the Picture\n        </button>\n      </div>\n    </div> <!-- Picture -->\n  </div> <!-- col-->\n\n\n  <div class=\"col-md-4\">\n    \n    <div class=\"card\">\n      <div class=\"card-header\">Other Players</div>\n      <ul class=\"list-group list-group-flush\">\n        <li *ngFor = \"let player of Model.Players\" class=\"list-group-item\">\n          <img style = \"height: 16px; width: 16px\" class = \"rounded\">\n          {{player.Name}}\n          <i class=\"badge float-right\" [ngClass]=\"player.PlayerId == Model.DealerId ? 'badge-warning' : 'badge-info'\">\n            {{player.Score}}\n          </i>\n        </li>\n      </ul>\n    </div> <!-- Other Players -->\n\n  </div> <!-- col-->\n</div>  <!--row-->"
 
 /***/ }),
 
@@ -181,10 +181,8 @@ var GameComponent = /** @class */ (function () {
             .subscribe(function (data) { return _this.Model = data.json(); });
     };
     GameComponent.prototype.flipPicture = function (e) {
-        if (this.IAmTheDealer() == true && this.quoteSubmit() == true) {
-            this.http.post(this._api + "/picture", {})
-                .subscribe(); // have to call subscribe() 
-        }
+        this.http.post(this._api + "/picture", {})
+            .subscribe(); // have to call subscribe() 
     };
     // e as event object
     GameComponent.prototype.submitQuote = function (e, text) {
@@ -201,7 +199,6 @@ var GameComponent = /** @class */ (function () {
             if (data.json().success) {
                 // only get rid of your quote if it is a success
                 _this.Me.MyQuotes.splice(_this.Me.MyQuotes.indexOf(text), 1); // remove the played quote in My Quotes
-                console.log('submit quote working');
             }
         }, function (err) {
             console.log(err);
@@ -210,15 +207,16 @@ var GameComponent = /** @class */ (function () {
     };
     GameComponent.prototype.login = function (name) {
         var _this = this;
-        console.log("login executed");
         this.http.get(this._api + "/quotes", { params: { playerId: name } })
             .subscribe(function (data) { return _this.Me = { Name: name, MyQuotes: data.json() }; });
     };
-    GameComponent.prototype.ChooseQuote = function (e, quote) {
-        console.log("ChooseQuote in component executed");
+    GameComponent.prototype.chooseQuote = function (e, quote) {
         e.preventDefault();
-        this.http.post(this._api + "/quotes", { Text: quote.Text })
-            .subscribe();
+        this.http.post(this._api + "/quotes/choose", { Text: quote.Text, PlayerId: this.Me.Name })
+            .subscribe(function (data) {
+        }, function (err) {
+            console.log(err);
+        });
     };
     GameComponent = __decorate([
         core_1.Component({

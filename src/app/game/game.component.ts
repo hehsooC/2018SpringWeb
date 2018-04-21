@@ -36,7 +36,6 @@ export class GameComponent implements OnInit {
   }
 
   flipPicture(e: MouseEvent) {
-    if(this.IAmTheDealer() == true && this.quoteSubmit() == true){
       this.http.post(this._api + "/picture", {})
       .subscribe(); // have to call subscribe() 
 
@@ -44,7 +43,7 @@ export class GameComponent implements OnInit {
 
 
     
-  }
+  
   // e as event object
   submitQuote(e: MouseEvent, text: string){
     e.preventDefault(); // don't browser know what we are doing as default (don't trigger the browser event)
@@ -52,16 +51,15 @@ export class GameComponent implements OnInit {
     if(this.MyPlayedQuote()||this.IAmTheDealer())
       return;
       
-    // Truesy, Falsy in addition to boolean in ifstmt
+      // Truesy, Falsy in addition to boolean in ifstmt
       // False: undefined, 0, 0 length string, no return, false, no variable 
       // other than False, anything will be treated as True
-      this.http.post(this._api + "/quotes", { Text: text, PlayerId: this.Me.Name })
-              .subscribe( data=>{
-                if(data.json().success){
-                  // only get rid of your quote if it is a success
-                  this.Me.MyQuotes.splice( this.Me.MyQuotes.indexOf(text), 1 ); // remove the played quote in My Quotes
-                  console.log('submit quote working');
-                }
+    this.http.post(this._api + "/quotes", { Text: text, PlayerId: this.Me.Name })
+        .subscribe( data=>{
+          if(data.json().success){
+            // only get rid of your quote if it is a success
+            this.Me.MyQuotes.splice( this.Me.MyQuotes.indexOf(text), 1 ); // remove the played quote in My Quotes
+          }
     }, err=> {
           console.log(err);
     });
@@ -73,7 +71,6 @@ export class GameComponent implements OnInit {
 
   
   login(name: string){
-    console.log("login executed");
     this.http.get(this._api + "/quotes", { params : { playerId: name }})
     .subscribe(data=> this.Me = {Name: name, MyQuotes: data.json()})
  
@@ -81,15 +78,13 @@ export class GameComponent implements OnInit {
     
   }
 
-  ChooseQuote(e: MouseEvent, quote: Quote) {
-    console.log("ChooseQuote in component executed");
+  chooseQuote(e: MouseEvent, quote: Quote) {
     e.preventDefault();
-    this.http.post(this._api + "/quotes", {Text:quote.Text})
-    .subscribe();
-    
-
-
-    
+    this.http.post(this._api + "/quotes/choose", {Text:quote.Text, PlayerId: this.Me.Name })
+    .subscribe(data=> {
+      },err=>{
+        console.log(err);
+      });
   }
   // MyPlayedQuote(): Quote | null {
   //   return this.Model.PlayedQuotes.find( x => x.PlayerName == this.Me.Name ); // lambda production (fat arrow production); functional function programming)

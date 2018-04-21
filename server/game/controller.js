@@ -10,7 +10,8 @@ var game = new Game();
 // actions
 module.exports = app
 //allows to log in with username
-.get('/quotes', (req, res) => res.send( game.GetQuotes(req.query.playerId) ) ) // getting a result, query string makes GET parameter to see same thing each other
+.get('/quotes', (req, res) => 
+    res.send( game.GetQuotes(req.query.playerId) ) ) // getting a result, query string makes GET parameter to see same thing each other
 // refresh
 .get('/state', (req, res) => res.send( game ) )
 // flipping picture
@@ -24,7 +25,16 @@ module.exports = app
     } catch(error){
         res.status(403).send({ success: false, message: error.message});
     }
+})
+.post('/quotes/choose', (req, res) => {
+    if(req.body.PlayerId != game.DealerId){
+        res.status(403).send({ success: false, message: "Only the dealer can choose a quote " });
+    } else{
+        game.ChooseQuote(req.body.Text);
+        res.send( { success: true } );
+    }
     
+});
     
 
     // WHAT I DID
@@ -41,7 +51,7 @@ module.exports = app
      
   
     
-})// post a picture, state will be changed with a new picture 
+// post a picture, state will be changed with a new picture 
 // .post('/choose', (req, res) => {
 //     console.log('work!'); 
 //     game.ChooseQuote(req.body.Text); 
@@ -58,7 +68,6 @@ module.exports = app
 //     //     game.ChooseQuote(req.body.Text); 
 //     // }
 // })
-; 
 
 
 

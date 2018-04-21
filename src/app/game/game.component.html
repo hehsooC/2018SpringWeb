@@ -35,7 +35,7 @@
                 {{quote.PlayerId}}
               </span>
               <button *ngIf = "IsEveryoneDone() && IAmTheDealer() && !ChosenQuote()" 
-                      (click)="ChooseQuote($event, quote)"
+                      (click)="chooseQuote($event, quote)"
                       class = "btn btn-sm btn-primary">
                       Choose
               </button>
@@ -47,7 +47,11 @@
       <!-- Data Binding Syntax: src="{{Model.Picture}}" or [src]="Model.picture" -->
       <img class="card-img-top card-img-bottom" *ngIf="Model.Picture" [src]="Model.Picture.url" alt="card image" /> 
       <div class = "card-img-overlay" style="text-align: center">
-        <button class="btn btn-success btn-lg" (click)="flipPicture($event)">Flip the Picture</button>
+        <button class="btn btn-success btn-lg" 
+                (click)="flipPicture($event)"
+                *ngIf="IAmTheDealer() && (Model.PlayedQuotes.length == 0 || ChosenQuote())">
+                Flip the Picture
+        </button>
       </div>
     </div> <!-- Picture -->
   </div> <!-- col-->
@@ -58,9 +62,12 @@
     <div class="card">
       <div class="card-header">Other Players</div>
       <ul class="list-group list-group-flush">
-        <li *ngFor = "let players of Model.Players" class="list-group-item">
+        <li *ngFor = "let player of Model.Players" class="list-group-item">
           <img style = "height: 16px; width: 16px" class = "rounded">
-          {{players.Name}}
+          {{player.Name}}
+          <i class="badge float-right" [ngClass]="player.PlayerId == Model.DealerId ? 'badge-warning' : 'badge-info'">
+            {{player.Score}}
+          </i>
         </li>
       </ul>
     </div> <!-- Other Players -->
