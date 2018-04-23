@@ -65,7 +65,10 @@
         <li *ngFor = "let player of Model.Players" class="list-group-item">
           <img style = "height: 16px; width: 16px" class = "rounded">
           {{player.Name}}
+          <!-- New way to implement code => if playerId is dealer, give me the warning (yellow), if not give me info(blue)-->
           <i class="badge float-right" [ngClass]="player.PlayerId == Model.DealerId ? 'badge-warning' : 'badge-info'">
+            <!-- Used to work like this,
+            [ngClass]={'badge-warning' : player.PlayerId == Model.DealerId, 'badge-info' : "player.PlayerId != Model.DealerId}   -->
             {{player.Score}}
           </i>
         </li>

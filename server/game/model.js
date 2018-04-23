@@ -173,29 +173,32 @@ function Game() {
             // if the player is already in the system, do this
 
             }else{
-                
+                 
                 // create a new user
                 this.Players.push({ PlayerId: playerId, Name: playerId, Score: 0 });
                 
             }
             // give quotes to a new user
-            return QuotesStack.slice(iCurrentQuote, iCurrentQuote += 7);
+            //return QuotesStack.slice(iCurrentQuote, iCurrentQuote += 7);
+            return QuotesStack.slice(iCurrentQuote, iCurrentQuote = (iCurrentQuote + 7) % QuoteStack.length);
+
         }
         // '%' will avoid index out of bound error
         // 'this.Picture' is public variable
         this.FlipPicture = () => {
             this.Picture = PicturesStack[iCurrentPicture = (iCurrentPicture+1) % PicturesStack.length ]; 
-            this.PlayedQuotes = [];
+            this.PlayedQuotes = []; // initialize new array
         }
         
+        // implement something in 3 stage (server side, client side)
         this.SubmitQuote = (text, playerId) => {
             if(playerId == this.DealerId) throw Error("Dealer can't submit a quote");
             this.PlayedQuotes.push({ Text: text, PlayerId: playerId });
         }; // public property (CAP): private property (LOWER)
         this.ChooseQuote = (text) => {
-            const chosenQuote = this.PlayedQuotes.find(x=> x.Text == text);
+            const chosenQuote = this.PlayedQuotes.find(x=> x.Text == text); // find chosen quote and assign it to variable
             chosenQuote.Chosen = true;
-            this.Players.find(x=> x.PlayerId == chosenQuote.PlayerId).Score++;
+            this.Players.find(x=> x.PlayerId == chosenQuote.PlayerId).Score++; // increment score of chosen player
              // if everyone is done and refresh the game, change dealer
             this.DealerId = this.Players[this.Players.findIndex( x=> x.PlayerId == this.DealerId) + 1 % this.Players.length ].PlayerId;
             

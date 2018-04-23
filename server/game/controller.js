@@ -23,9 +23,12 @@ module.exports = app
         game.SubmitQuote(req.body.Text, req.body.PlayerId);
         res.send({ success: true });
     } catch(error){
-        res.status(403).send({ success: false, message: error.message});
+        res.status(403).send({ success: false, message: error.message}); 
+        // send error and data to http header (status(403)), 403 means not allowed. 200 means success.
+        // I can either do res.status(403) or res.send
     }
 })
+// need to have different end point for different function (/quotes/choose - endpoint
 .post('/quotes/choose', (req, res) => {
     if(req.body.PlayerId != game.DealerId){
         res.status(403).send({ success: false, message: "Only the dealer can choose a quote " });

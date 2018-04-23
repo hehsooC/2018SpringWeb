@@ -48,6 +48,8 @@ export class GameComponent implements OnInit {
   submitQuote(e: MouseEvent, text: string){
     e.preventDefault(); // don't browser know what we are doing as default (don't trigger the browser event)
      // if this card is already played, return (prevent submitting another quote)
+     // if you are a dealer, prevent submitting quote
+     // Use consistent logic
     if(this.MyPlayedQuote()||this.IAmTheDealer())
       return;
       
@@ -56,11 +58,13 @@ export class GameComponent implements OnInit {
       // other than False, anything will be treated as True
     this.http.post(this._api + "/quotes", { Text: text, PlayerId: this.Me.Name })
         .subscribe( data=>{
+          // this is passed to the body, we can omit if part
           if(data.json().success){
             // only get rid of your quote if it is a success
             this.Me.MyQuotes.splice( this.Me.MyQuotes.indexOf(text), 1 ); // remove the played quote in My Quotes
           }
     }, err=> {
+      // this is passed to the header
           console.log(err);
     });
 
@@ -97,8 +101,10 @@ export class GameComponent implements OnInit {
   ChosenQuote = () => this.Model.PlayedQuotes.find( x => x.Chosen );
 
   // everybody except the dealer played quotes
-  IsEveryoneDone = () => this.Model.PlayedQuotes.length == this.Model.Players.length - 1; 
+  //IsEveryoneDone = () => this.Model.PlayedQuotes.length == this.Model.Players.length - 1; 
   
+    IsEveryoneDone = () => this.Model.PlayedQuotes.length >= (this.Model.Players.length * .8) - 1; 
+
   IAmTheDealer = () => this.Me.Name == this.Model.DealerId;
   quoteSubmit = () => this.Model.PlayedQuotes.length == 0;
  
