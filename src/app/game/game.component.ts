@@ -3,6 +3,8 @@ import { Http } from '@angular/http'; // import Http interface
 
 import { Game, User, Quote } from '../models/game';
 import { MessagesService } from '../services/messages.service';
+import { GameService } from '../services/game.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-game',
@@ -14,13 +16,26 @@ export class GameComponent implements OnInit {
   // public variables
   Model = new Game();     // state of game
   Me: User;
-  Q: Quote;
+ 
   private _api = "http://localhost:8080/game";
 
   //flippedPic: boolean = true;
 
   // get http client
-  constructor(private http: Http, private _Messages: MessagesService) { 
+  // 4/26 import game service, _Game: GameService
+  constructor(
+    private http: Http, 
+    private _Messages: MessagesService, 
+    private _Game: GameService, 
+    private _Router: Router
+  ) { 
+    // reference Me to Game Service, it's pain to change every Me reference 
+    this.Me = _Game.Me;
+    if(!this.Me){
+      _Router.navigate(['/login']);
+    }
+    this.join(this.Me.Name);
+
     setInterval(() => this.refresh(), 1000) 
   }
 
@@ -77,14 +92,18 @@ export class GameComponent implements OnInit {
   }
 
   
-  login(name: string){
+/*   login(name: string){
     this._Messages.Messages.push({Text: 'You\'ve logged in. Welcome ' + name, Type: 'success'});
     this.http.get(this._api + "/quotes", { params : { playerId: name }})
     .subscribe(data=> this.Me = {Name: name, MyQuotes: data.json()})
- 
+  } */
 
-    
+  join(name: string){
+    this._Messages.Messages.push({Text: 'You\'ve joined this game. Welcome ' + name, Type: 'success'});
+    this.http.get(this._api + "/quotes", { params : { playerId: name }}) // pass id to server
+    .subscribe(data=> this.Me.MyQuotes = data.json()) // now constructor will take local MyQuotes 
   }
+
 
   chooseQuote(e: MouseEvent, quote: Quote) {
     e.preventDefault();
