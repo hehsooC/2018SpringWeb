@@ -8,7 +8,7 @@ var app = express.Router(); // subrouter (controller)
 var game = new Game();
 
 // actions
-module.exports = app
+module.exports = app 
 //allows to log in with username
 .get('/quotes', (req, res) => 
     res.send( game.GetQuotes(req.query.playerId) ) ) // getting a result, query string makes GET parameter to see same thing each other

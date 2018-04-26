@@ -9,7 +9,7 @@ var myArr = [
     ["Hello", "world"],
     ["Good bye", "New Paltz"]
 ];
-
+ 
 console.log(myArr); // display contents of maArr
 
 var arr2 = flatten(myArr); // flatten 2 arrays as one in myArr

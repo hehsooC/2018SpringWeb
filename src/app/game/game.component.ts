@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http'; // import Http interface
 
 import { Game, User, Quote } from '../models/game';
+import { MessagesService } from '../services/messages.service';
 
 @Component({
   selector: 'app-game',
@@ -19,7 +20,7 @@ export class GameComponent implements OnInit {
   //flippedPic: boolean = true;
 
   // get http client
-  constructor(private http: Http) { 
+  constructor(private http: Http, private _Messages: MessagesService) { 
     setInterval(() => this.refresh(), 1000) 
   }
 
@@ -36,6 +37,7 @@ export class GameComponent implements OnInit {
   }
 
   flipPicture(e: MouseEvent) {
+      this._Messages.Messages.push({Text: 'Picture Flipped', Type: 'success'});
       this.http.post(this._api + "/picture", {})
       .subscribe(); // have to call subscribe() 
 
@@ -46,6 +48,7 @@ export class GameComponent implements OnInit {
   
   // e as event object
   submitQuote(e: MouseEvent, text: string){
+    this._Messages.Messages.push({Text: 'Quote Submitted: ' + text, Type: 'success'});
     e.preventDefault(); // don't browser know what we are doing as default (don't trigger the browser event)
      // if this card is already played, return (prevent submitting another quote)
      // if you are a dealer, prevent submitting quote
@@ -75,6 +78,7 @@ export class GameComponent implements OnInit {
 
   
   login(name: string){
+    this._Messages.Messages.push({Text: 'You\'ve logged in. Welcome ' + name, Type: 'success'});
     this.http.get(this._api + "/quotes", { params : { playerId: name }})
     .subscribe(data=> this.Me = {Name: name, MyQuotes: data.json()})
  

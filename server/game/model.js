@@ -172,7 +172,7 @@ function Game() {
             if(this.Players.some(x => x.PlayerId == playerId)) {
             // if the player is already in the system, do this
 
-            }else{
+            }else{ 
                  
                 // create a new user
                 this.Players.push({ PlayerId: playerId, Name: playerId, Score: 0 });
@@ -180,8 +180,8 @@ function Game() {
             }
             // give quotes to a new user
             //return QuotesStack.slice(iCurrentQuote, iCurrentQuote += 7);
-            return QuotesStack.slice(iCurrentQuote, iCurrentQuote = (iCurrentQuote + 7) % QuoteStack.length);
-
+            return QuotesStack.slice(iCurrentQuote, iCurrentQuote = (iCurrentQuote + 7) % QuotesStack.length);
+ 
         }
         // '%' will avoid index out of bound error
         // 'this.Picture' is public variable
