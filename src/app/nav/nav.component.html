@@ -17,6 +17,11 @@
             <a class="nav-link disabled" routerLink="#" routerLinkActive="active">Disabled</a> <!-- routerLink makes routing faster-->
           </li>
         </ul>
+
+        <div class="navbar-text pull-right">
+          <img [src]="Game.pic" style="height: 24px;" />
+          {{Game.Me.Name}}
+        </div>
       </div>
  
   </div><!-- navbar container -->

@@ -4,8 +4,8 @@
 // npm run server in terminal
 
 /* const flatten = require('array-flatten');
-
-var myArr = [
+ 
+var myArr = [ 
     ["Hello", "world"],
     ["Good bye", "New Paltz"]
 ];
